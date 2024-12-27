@@ -6,20 +6,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 87ab202bb6c07b24922169fc12115f9fe074c9d6ae33df08b91cb3c4ca48436f
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: "{{ PYTHON }} -m pip install . -vv"
 
 requirements:
   host:
-    - python >=3.5
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.5
+    - python >={{ python_min }}
     - numpy >=1.14
     - scipy >=1.0
     - astropy >=3.0
@@ -33,6 +33,7 @@ test:
     - hasasia.utils
   requires:
     - pip
+    - python {{ python_min }}
   commands:
     - pip check
 
